@@ -25,5 +25,14 @@ jobs:
       env:
         TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
 
+    - name: Add result file
+      run: |
+        git config --global user.email "github-actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add -f resultados.txt
+        git commit -m "Adiciona resultados.txt"
+        git push
+      continue-on-error: true  # Continua o workflow mesmo que o commit ou o push falhem
+
     - name: List files in the repository
       run: ls -R  # Este comando lista todos os arquivos e diretórios para verificar se resultados.txt está presente
