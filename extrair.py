@@ -1,6 +1,7 @@
 import requests
 
 def extrair_nomes_m3u(arquivo_m3u):
+    print(f"Lendo o arquivo M3U: {arquivo_m3u}")
     with open(arquivo_m3u, 'r', encoding='utf-8') as f:
         linhas = f.readlines()
 
@@ -10,6 +11,7 @@ def extrair_nomes_m3u(arquivo_m3u):
             info = linha.split(',')
             nome = info[-1].strip()
             nomes.append(nome)
+    print(f"Nomes extraídos: {nomes}")
     return nomes
 
 def obter_id_tmdb(nome, api_key):
