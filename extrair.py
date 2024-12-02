@@ -18,7 +18,8 @@ def extrair_nomes_m3u(arquivo_m3u):
 def obter_id_tmdb(nome, api_key):
     url = f"https://api.themoviedb.org/3/search/multi?api_key={api_key}&query={nome}"
     response = requests.get(url)
-    
+    print(f"Consulta para {nome}: Status {response.status_code}")
+
     if response.status_code == 200:
         dados = response.json()
         if 'results' in dados and dados['results']:
