@@ -21,6 +21,9 @@ jobs:
         pip install requests
 
     - name: Run TMDB script
-      run: python extrair.py  # Substitua pelo nome do seu script Python
+      run: python extrair.py
       env:
         TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+
+    - name: List files in the repository
+      run: ls -R  # Este comando lista todos os arquivos e diretórios para verificar se resultados.txt está presente
