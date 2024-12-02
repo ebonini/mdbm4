@@ -32,7 +32,7 @@ jobs:
         git add -f resultados.txt
         git commit -m "Adiciona resultados.txt"
         git push
-      continue-on-error: true  # Continua o workflow mesmo que o commit ou o push falhem
+      continue-on-error: true
 
     - name: List files in the repository
-      run: ls -R  # Este comando lista todos os arquivos e diretórios para verificar se resultados.txt está presente
+      run: cat resultados.txt  # Exibe o conteúdo do arquivo resultados.txt
