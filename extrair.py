@@ -7,7 +7,7 @@ def extrair_nomes_m3u(arquivo_m3u):
     print("Arquivo M3U lido com sucesso")
 
     nomes = []
-    for linha in linhas:
+    for linha em linhas:
         if linha.startswith('#EXTINF:'):
             info = linha.split(',')
             nome = info[-1].strip()
