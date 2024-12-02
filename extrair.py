@@ -5,7 +5,7 @@ def extrair_nomes_m3u(arquivo_m3u):
         linhas = f.readlines()
 
     nomes = []
-    for linha in linhas:
+    for linha em linhas:
         if linha.startswith('#EXTINF:'):
             info = linha.split(',')
             nome = info[-1].strip()
@@ -28,9 +28,11 @@ def obter_id_tmdb(nome, api_key):
         return None
 
 def armazenar_em_txt(dados, arquivo_txt):
+    print(f"Armazenando dados em {arquivo_txt}")
     with open(arquivo_txt, 'w', encoding='utf-8') as f:
         for nome, id_tmdb in dados.items():
             f.write(f"{nome}: {id_tmdb}\n")
+    print("Armazenamento concluído")
 
 def main():
     api_key = 'SUA_API_KEY_DO_TMDB'
