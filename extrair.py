@@ -4,6 +4,7 @@ def extrair_nomes_m3u(arquivo_m3u):
     print(f"Lendo o arquivo M3U: {arquivo_m3u}")
     with open(arquivo_m3u, 'r', encoding='utf-8') as f:
         linhas = f.readlines()
+    print("Arquivo M3U lido com sucesso")
 
     nomes = []
     for linha in linhas:
@@ -40,10 +41,12 @@ def armazenar_em_txt(dados, arquivo_txt):
 
 def main():
     api_key = 'SUA_API_KEY_DO_TMDB'
+    print("Extraindo nomes da lista M3U")
     nomes_filmes_series = extrair_nomes_m3u('lista.m3u')
+    
     ids_filmes_series = {}
-
     for nome in nomes_filmes_series:
+        print(f"Buscando ID para {nome}")
         id_tmdb = obter_id_tmdb(nome, api_key)
         ids_filmes_series[nome] = id_tmdb
 
