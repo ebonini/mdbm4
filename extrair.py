@@ -25,10 +25,10 @@ def obter_id_tmdb(nome, api_key):
             print(f"ID encontrado para {nome}: {dados['results'][0]['id']}")
             return dados['results'][0]['id']
         else:
-            print(f"No results found for {nome}")
+            print(f"Nenhum resultado encontrado para {nome}")
             return None
     else:
-        print(f"Error fetching data for {nome}, status code: {response.status_code}")
+        print(f"Erro ao buscar dados para {nome}, código de status: {response.status_code}")
         return None
 
 def armazenar_em_txt(dados, arquivo_txt):
@@ -37,6 +37,7 @@ def armazenar_em_txt(dados, arquivo_txt):
         for nome, id_tmdb in dados.items():
             if id_tmdb is not None:
                 f.write(f"{nome}: {id_tmdb}\n")
+                print(f"Escrito no arquivo - {nome}: {id_tmdb}")
     print("Armazenamento concluído")
 
 def main():
