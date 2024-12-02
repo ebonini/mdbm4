@@ -5,7 +5,7 @@ def extrair_nomes_m3u(arquivo_m3u):
         linhas = f.readlines()
 
     nomes = []
-    for linha in linhas:
+    for linha em linhas:
         if linha.startswith('#EXTINF:'):
             info = linha.split(',')
             nome = info[-1].strip()
@@ -15,11 +15,16 @@ def extrair_nomes_m3u(arquivo_m3u):
 def obter_id_tmdb(nome, api_key):
     url = f"https://api.themoviedb.org/3/search/multi?api_key={api_key}&query={nome}"
     response = requests.get(url)
-    dados = response.json()
-
-    if dados['results']:
-        return dados['results'][0]['id']
+    
+    if response.status_code == 200:
+        dados = response.json()
+        if 'results' in dados and dados['results']:
+            return dados['results'][0]['id']
+        else:
+            print(f"No results found for {nome}")
+            return None
     else:
+        print(f"Error fetching data for {nome}, status code: {response.status_code}")
         return None
 
 def armazenar_em_txt(dados, arquivo_txt):
