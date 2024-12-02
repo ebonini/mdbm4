@@ -19,6 +19,7 @@ def obter_id_tmdb(nome, api_key):
     if response.status_code == 200:
         dados = response.json()
         if 'results' in dados and dados['results']:
+            print(f"ID encontrado para {nome}: {dados['results'][0]['id']}")
             return dados['results'][0]['id']
         else:
             print(f"No results found for {nome}")
@@ -31,7 +32,8 @@ def armazenar_em_txt(dados, arquivo_txt):
     print(f"Armazenando dados em {arquivo_txt}")
     with open(arquivo_txt, 'w', encoding='utf-8') as f:
         for nome, id_tmdb in dados.items():
-            f.write(f"{nome}: {id_tmdb}\n")
+            if id_tmdb is not None:
+                f.write(f"{nome}: {id_tmdb}\n")
     print("Armazenamento concluído")
 
 def main():
@@ -43,6 +45,7 @@ def main():
         id_tmdb = obter_id_tmdb(nome, api_key)
         ids_filmes_series[nome] = id_tmdb
 
+    print("IDs obtidos:", ids_filmes_series)
     armazenar_em_txt(ids_filmes_series, 'resultados.txt')
     print("Dados armazenados em resultados.txt")
 
