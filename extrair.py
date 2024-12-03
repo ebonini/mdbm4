@@ -7,7 +7,7 @@ def extrair_nomes_m3u(arquivo_m3u):
     print("Arquivo M3U lido com sucesso")
 
     nomes = []
-    for linha in linhas:
+    for linha em linhas:
         if linha.startswith('#EXTINF:'):
             info = linha.split(',')
             nome = info[-1].strip()
@@ -39,6 +39,8 @@ def armazenar_em_txt(dados, arquivo_txt):
             if id_tmdb is not None:
                 f.write(f"{nome}: {id_tmdb}\n")
                 print(f"Escrito no arquivo - {nome}: {id_tmdb}")
+            else:
+                print(f"ID não encontrado para {nome}, nada foi escrito")
     print("Armazenamento concluído")
 
 def main():
