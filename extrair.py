@@ -2,12 +2,16 @@ import requests
 
 def extrair_nomes_m3u(arquivo_m3u):
     print(f"Lendo o arquivo M3U: {arquivo_m3u}")
-    with open(arquivo_m3u, 'r', encoding='utf-8') as f:
-        linhas = f.readlines()
-    print("Arquivo M3U lido com sucesso")
+    try:
+        with open(arquivo_m3u, 'r', encoding='utf-8') as f:
+            linhas = f.readlines()
+        print("Arquivo M3U lido com sucesso")
+    except Exception as e:
+        print(f"Erro ao ler o arquivo M3U: {e}")
+        return []
 
     nomes = []
-    for linha em linhas:
+    for linha in linhas:
         if linha.startswith('#EXTINF:'):
             info = linha.split(',')
             nome = info[-1].strip()
@@ -34,29 +38,18 @@ def obter_id_tmdb(nome, api_key):
 
 def armazenar_em_txt(dados, arquivo_txt):
     print(f"Armazenando dados em {arquivo_txt}")
-    with open(arquivo_txt, 'w', encoding='utf-8') as f:
-        for nome, id_tmdb in dados.items():
-            if id_tmdb is not None:
-                f.write(f"{nome}: {id_tmdb}\n")
-                print(f"Escrito no arquivo - {nome}: {id_tmdb}")
-            else:
-                print(f"ID não encontrado para {nome}, nada foi escrito")
-    print("Armazenamento concluído")
+    try:
+        with open(arquivo_txt, 'w', encoding='utf-8') as f:
+            for nome, id_tmdb in dados.items():
+                if id_tmdb is not None:
+                    f.write(f"{nome}: {id_tmdb}\n")
+                    print(f"Escrito no arquivo - {nome}: {id_tmdb}")
+                else:
+                    print(f"ID não encontrado para {nome}, nada foi escrito")
+        print("Armazenamento concluído")
+    except Exception as e:
+        print(f"Erro ao armazenar dados no arquivo: {e}")
 
 def main():
     api_key = 'SUA_API_KEY_DO_TMDB'
     print("Extraindo nomes da lista M3U")
-    nomes_filmes_series = extrair_nomes_m3u('lista.m3u')
-    
-    ids_filmes_series = {}
-    for nome in nomes_filmes_series:
-        print(f"Buscando ID para {nome}")
-        id_tmdb = obter_id_tmdb(nome, api_key)
-        ids_filmes_series[nome] = id_tmdb
-
-    print("IDs obtidos:", ids_filmes_series)
-    armazenar_em_txt(ids_filmes_series, 'resultados.txt')
-    print("Dados armazenados em resultados.txt")
-
-if __name__ == '__main__':
-    main()
