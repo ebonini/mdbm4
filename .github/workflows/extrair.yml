@@ -35,4 +35,6 @@ jobs:
       continue-on-error: true
 
     - name: List files in the repository
-      run: cat resultados.txt  # Exibe o conteúdo do arquivo resultados.txt
+      run: |
+        ls -R  # Lista todos os arquivos e diretórios para verificar se resultados.txt está presente
+        cat resultados.txt  # Exibe o conteúdo do arquivo resultados.txt
