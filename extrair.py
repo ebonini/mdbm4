@@ -11,7 +11,7 @@ def extrair_nomes_m3u(arquivo_m3u):
         return []
 
     nomes = []
-    for linha in linhas:
+    for linha em linhas:
         if linha.startswith('#EXTINF:'):
             info = linha.split(',')
             nome = info[-1].strip()
@@ -53,3 +53,17 @@ def armazenar_em_txt(dados, arquivo_txt):
 def main():
     api_key = 'SUA_API_KEY_DO_TMDB'
     print("Extraindo nomes da lista M3U")
+    nomes_filmes_series = extrair_nomes_m3u('lista.m3u')
+    
+    ids_filmes_series = {}
+    for nome in nomes_filmes_series:
+        print(f"Buscando ID para {nome}")
+        id_tmdb = obter_id_tmdb(nome, api_key)
+        ids_filmes_series[nome] = id_tmdb
+
+    print("IDs obtidos:", ids_filmes_series)
+    armazenar_em_txt(ids_filmes_series, 'resultados.txt')
+    print("Dados armazenados em resultados.txt")
+
+if __name__ == '__main__':
+    main()
